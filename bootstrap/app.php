@@ -23,9 +23,22 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
+$app->configure('cors');//ativando cors
+
 // $app->withFacades();
 
 $app->withEloquent(); //ativando eloquente josue
+
+/*
+$app->middleware([
+    Barryvdh\Cors\HandleCors::class
+]);
+*/
+$app->routeMiddleware([
+    // ...
+    'cors' => \Barryvdh\Cors\HandleCors::class,
+]);
+
 
 /*
 |--------------------------------------------------------------------------
@@ -81,6 +94,7 @@ $app->singleton(
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
+$app->register(Barryvdh\Cors\ServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

@@ -23,3 +23,21 @@ $router->get('/hello/{name}', [
 /*$router->get('/', function () use ($router) {
     return $router->app->version();
 });*/
+
+$router->group(['prefix'=>'api', 'middleware'=>['cors']], function () use ($router) {
+    $router->get('/', 'Api\WelcomeController@index');
+    $router->get('/users', 'Api\UsersController@index');
+    $router->get('/users/{id}', 'Api\UsersController@show');
+    $router->post('/users', 'Api\UsersController@store');
+    $router->put('/users/{id}', 'Api\UsersController@update');
+    $router->delete('/users/{id}', 'Api\UsersController@destroy');
+});
+
+/*$router->group(['prefix'=>'api'], function () use ($router) {
+    $router->get('/', 'Api\WelcomeController@index');
+    $router->get('/users', 'Api\UsersController@index');
+    $router->get('/users/{id}', 'Api\UsersController@show');
+    $router->post('/users', 'Api\UsersController@store');
+    $router->put('/users/{id}', 'Api\UsersController@update');
+    $router->delete('/users/{id}', 'Api\UsersController@destroy');
+});*/
